@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,9 +24,16 @@ public class GoalController {
     private GoalService goalService;
 
     @RequestMapping(value = "addGoal", method = RequestMethod.GET)
-    public String addGoal(Model model) {
-        Goal goal = new Goal();
-        goal.setMinutes(10);
+    public String addGoal(Model model, HttpSession session) {
+//        Goal goal = new Goal();
+
+        Goal goal = (Goal) session.getAttribute("goal");
+
+        if (goal == null) {
+            goal = new Goal();
+            goal.setMinutes(10);
+        }
+
         model.addAttribute("goal", goal);
 
         return "addGoal";
@@ -47,15 +55,15 @@ public class GoalController {
         return "redirect:index.jsp";
     }
 
-    @RequestMapping(value="/getGoals", method = RequestMethod.GET)
-    public String getGoals(Model model){
+    @RequestMapping(value = "/getGoals", method = RequestMethod.GET)
+    public String getGoals(Model model) {
         List<Goal> goals = goalService.findAllGoals();
         model.addAttribute("goals", goals);
         return "getGoals";
     }
 
-    @RequestMapping(value="/getGoalReports", method = RequestMethod.GET)
-    public String getGoalReports(Model model){
+    @RequestMapping(value = "/getGoalReports", method = RequestMethod.GET)
+    public String getGoalReports(Model model) {
         List<GoalReport> goalReports = goalService.findAllGoalReports();
         model.addAttribute("goalReports", goalReports);
         return "getGoalReports";
