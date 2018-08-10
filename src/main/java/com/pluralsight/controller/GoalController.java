@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @SessionAttributes("goal")
@@ -45,4 +46,10 @@ public class GoalController {
         return "redirect:index.jsp";
     }
 
+    @RequestMapping(value="/getGoals", method = RequestMethod.GET)
+    public String getGoals(Model model){
+        List<Goal> goals = goalService.findAllGoals();
+        model.addAttribute("goals", goals);
+        return "getGoals";
+    }
 }
