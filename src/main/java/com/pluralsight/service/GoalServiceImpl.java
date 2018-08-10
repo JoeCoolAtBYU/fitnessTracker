@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("goalService")
-public class GoalServiceImpl implements GoalService{
+public class GoalServiceImpl implements GoalService {
 
     @Autowired
     private GoalRepository goalRepository;

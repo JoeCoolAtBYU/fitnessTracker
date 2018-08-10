@@ -17,32 +17,32 @@ import javax.validation.Valid;
 @SessionAttributes("goal")
 public class GoalController {
 
-	@Autowired
-	private GoalService goalService;
+    @Autowired
+    private GoalService goalService;
 
-	@RequestMapping(value = "addGoal", method = RequestMethod.GET)
-	public String addGoal(Model model) {
-		Goal goal = new Goal();
-		goal.setMinutes(10);
-		model.addAttribute("goal", goal);
-		
-		return "addGoal";
-	}
-	
-	@RequestMapping(value = "addGoal", method = RequestMethod.POST)
-	public String updateGoal(@Valid @ModelAttribute("goal") Goal goal, BindingResult result) {
-		
-		System.out.println("result has errors: " + result.hasErrors());
-		
-		System.out.println("Goal set: " + goal.getMinutes());
-		
-		if(result.hasErrors()) {
-			return "addGoal";
-		} else {
-			goalService.save(goal);
-		}
-		
-		return "redirect:index.jsp";
-	}
-	
+    @RequestMapping(value = "addGoal", method = RequestMethod.GET)
+    public String addGoal(Model model) {
+        Goal goal = new Goal();
+        goal.setMinutes(10);
+        model.addAttribute("goal", goal);
+
+        return "addGoal";
+    }
+
+    @RequestMapping(value = "addGoal", method = RequestMethod.POST)
+    public String updateGoal(@Valid @ModelAttribute("goal") Goal goal, BindingResult result) {
+
+        System.out.println("result has errors: " + result.hasErrors());
+
+        System.out.println("Goal set: " + goal.getMinutes());
+
+        if (result.hasErrors()) {
+            return "addGoal";
+        } else {
+            goalService.save(goal);
+        }
+
+        return "redirect:index.jsp";
+    }
+
 }
