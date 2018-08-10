@@ -12,7 +12,6 @@ public class GoalServiceImpl implements GoalService{
     @Autowired
     private GoalRepository goalRepository;
 
-    @Override
     @Transactional
     public Goal save(Goal goal) {
         goalRepository.save(goal);
